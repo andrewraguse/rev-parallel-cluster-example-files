@@ -1,6 +1,6 @@
 {
    "execution_control":{
-      "option":"aws",
+      "option":"awspc",
       "qos":"normal",
       "memory":null,
       "walltime":1,
