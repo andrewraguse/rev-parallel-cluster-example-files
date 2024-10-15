@@ -3,6 +3,8 @@
         "option": "aws",  // Specifies the execution environment (AWS)
         "qos": "normal",   // Quality of Service level
         "memory": null,
+        "walltime": 1,
+        "allocation": "reVCluster",
         "nodes": 1,      // Number of nodes to allocate
         "max_workers": 1, // Max workers per node
         "memory_utilization_limit": 0.4,
