@@ -1,34 +1,34 @@
 {
-    "execution_control": {
-        "option": "aws",  // Specifies the execution environment (AWS)
-        "qos": "normal",   // Quality of Service level
-        "memory": null,
-        "walltime": 1,
-        "allocation": "reVCluster",
-        "nodes": 1,      // Number of nodes to allocate
-        "max_workers": 1, // Max workers per node
-        "memory_utilization_limit": 0.4,
-        "timeout": 1800  // Job timeout in seconds
-    },
-    "log_directory": "./logs",
-    "log_level": "ERROR",
-    "technology": "pvwattsv5",
-    "project_points": "./benzie_config.csv",
-    "sam_files": "./i_lcoe_naris_pv_1axis_inv13.json",
-    "resource_file": "/nrel/nsrdb/v3/nsrdb_2013.h5",
-    "low_res_resource_file": null,
-    "output_request": [
-        "cf_mean",
-        "cf_profile",
-        "lcoe_fcr",
-        "ghi_mean"
-    ],
-    "site_data": null,
-    "curtailment": null,
-    "gid_map": null,
-    "drop_leap": false,
-    "scale_outputs": true,
-    "write_mapped_gids": false,
-    "bias_correct": null,
-    "analysis_years": null
+   "execution_control":{
+      "option":"aws",
+      "qos":"normal",
+      "memory":null,
+      "walltime":1,
+      "allocation":"reVCluster",
+      "nodes":1,
+      "max_workers":1,
+      "memory_utilization_limit":0.4,
+      "timeout":1800
+   },
+   "log_directory":"./logs",
+   "log_level":"ERROR",
+   "technology":"pvwattsv5",
+   "project_points":"./benzie_config.csv",
+   "sam_files":"./i_lcoe_naris_pv_1axis_inv13.json",
+   "resource_file":"/nrel/nsrdb/v3/nsrdb_2013.h5",
+   "low_res_resource_file":null,
+   "output_request":[
+      "cf_mean",
+      "cf_profile",
+      "lcoe_fcr",
+      "ghi_mean"
+   ],
+   "site_data":null,
+   "curtailment":null,
+   "gid_map":null,
+   "drop_leap":false,
+   "scale_outputs":true,
+   "write_mapped_gids":false,
+   "bias_correct":null,
+   "analysis_years":null
 }
