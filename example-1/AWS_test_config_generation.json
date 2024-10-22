@@ -16,6 +16,7 @@
    "project_points":"./benzie_config.csv",
    "sam_files":"./i_lcoe_naris_pv_1axis_inv13.json",
    "resource_file":"/nrel/nsrdb/v3/nsrdb_2013.h5",
+   "hsds_endpoint": "http://localhost:5101",
    "low_res_resource_file":null,
    "output_request":[
       "cf_mean",
