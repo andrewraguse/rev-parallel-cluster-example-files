@@ -25,6 +25,8 @@
   ],
   "project_points": "./wtk_points_front_range.csv",
   "resource_file": "/nrel/wtk/conus/wtk_conus_{}.h5",
-  "sam_files":"./windpower.json",
+  "sam_files": {
+    "def": "./windpower.json"
+  },
   "technology": "windpower"
 }
