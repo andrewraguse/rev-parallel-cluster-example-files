@@ -6,8 +6,12 @@
     "lcoe_fcr"
   ],
   "execution_control": {
-    "option": "slurm"
-  },
+      "option": "awspc",
+      "qos": "normal",
+      "memory": null,
+      "walltime": 1,
+      "allocation": "revcluster"
+   },
   "log_directory": "./logs/",
   "log_level": "INFO",
   "project_points": "./wtk_points_front_range.csv"

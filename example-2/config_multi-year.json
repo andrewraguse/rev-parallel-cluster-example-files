@@ -1,8 +1,12 @@
 {
   "log_directory": "./logs/",
   "execution_control": {
-    "option": "slurm"
-  },
+      "option": "awspc",
+      "qos": "normal",
+      "memory": null,
+      "walltime": 1,
+      "allocation": "revcluster"
+   },
   "groups": {
     "none": {
       "dsets": [
