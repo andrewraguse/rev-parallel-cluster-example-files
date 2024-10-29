@@ -1,4 +1,9 @@
 {
+  "analysis_years": [
+    2007,
+    2008
+  ],
+  "log_directory": "./logs/",
   "execution_control": {
       "option": "awspc",
       "qos": "normal",
@@ -10,17 +15,6 @@
       "memory_utilization_limit": 0.4,
       "timeout": 1800
    },
-  "analysis_years": [
-    2007,
-    2008
-  ],
-  "log_directory": "./logs/",
-  "execution_control": {
-    "nodes": 16,
-    "option": "slurm",
-    "sites_per_worker": 20,
-    "max_workers": 1
-  },
   "log_level": "INFO",
   "output_request": [
     "cf_mean",
