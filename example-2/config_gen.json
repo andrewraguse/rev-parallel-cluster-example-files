@@ -1,4 +1,15 @@
 {
+  "execution_control": {
+      "option": "awspc",
+      "qos": "normal",
+      "memory": null,
+      "walltime": 1,
+      "allocation": "revcluster",
+      "nodes": 16,
+      "max_workers": 1,
+      "memory_utilization_limit": 0.4,
+      "timeout": 1800
+   },
   "analysis_years": [
     2007,
     2008
@@ -24,4 +35,3 @@
   "technology": "windpower",
   "hsds_endpoint": "http://localhost:5101"
 }
-
