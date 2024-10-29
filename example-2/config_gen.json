@@ -13,7 +13,8 @@
       "nodes": 16,
       "max_workers": 1,
       "memory_utilization_limit": 0.4,
-      "timeout": 1800
+      "timeout": 1800,
+      "sites_per_worker": 20,
    },
   "log_level": "INFO",
   "output_request": [
