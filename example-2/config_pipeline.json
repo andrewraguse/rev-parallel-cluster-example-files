@@ -1,7 +1,7 @@
 {
   "logging": {
-    "log_file": null,
-    "log_level": "INFO"
+    "log_file": "./logs/pipeline.log",
+    "log_level": "DEBUG"
   },
   "pipeline": [
     {
