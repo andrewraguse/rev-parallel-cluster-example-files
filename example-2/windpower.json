@@ -8,7 +8,7 @@
   "weibull_k_factor": 2,
   "weibull_reference_height": 50,
   "weibull_wind_speed": 7.25,
-  "wind_farm_losses_percent": 0,
+  "turb_generic_loss": 0,
   "wind_farm_wake_model": 0,
   "wind_farm_xCoordinates": [
     0,

@@ -16,7 +16,8 @@
       "timeout": 1800,
       "sites_per_worker": 20
    },
-  "log_level": "INFO",
+  "log_level": "DEBUG",
+  "hsds_endpoint": "http://localhost:5101",
   "output_request": [
     "cf_mean",
     "cf_profile",
@@ -24,9 +25,6 @@
   ],
   "project_points": "./wtk_points_front_range.csv",
   "resource_file": "/nrel/wtk/conus/wtk_conus_{}.h5",
-  "sam_files": {
-    "def": "./windpower.json"
-  },
-  "technology": "windpower",
-  "hsds_endpoint": "http://localhost:5101"
+  "sam_files":"./windpower.json",
+  "technology": "windpower"
 }
