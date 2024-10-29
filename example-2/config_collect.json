@@ -1,5 +1,5 @@
 {
-  "collect_pattern": "PIPELINE",
+  "collect_pattern": "/home/ec2-user/rev-parallel-cluster-example-files/example-2/example-2_generation_*.h5",
   "dsets": [
     "cf_mean",
     "cf_profile",
