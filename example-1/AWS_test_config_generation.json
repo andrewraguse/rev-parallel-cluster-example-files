@@ -15,7 +15,7 @@
    "technology":"pvwattsv5",
    "project_points":"./benzie_config.csv",
    "sam_files":"./naris_pv_1axis_inv13.json",
-   "resource_file":"/nrel/wtk/conus/wtk_conus_2008.h5",
+   "resource_file":"/nrel/nsrdb/v3/nsrdb_2013.h5",
    "hsds_endpoint": "http://localhost:5101",
    "low_res_resource_file":null,
    "output_request":[
