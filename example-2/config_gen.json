@@ -7,14 +7,12 @@
   "execution_control": {
       "option": "awspc",
       "qos": "normal",
-      "memory": null,
       "walltime": 1,
       "allocation": "revcluster",
       "nodes": 16,
+      "sites_per_worker": 20,
       "max_workers": 1,
-      "memory_utilization_limit": 0.4,
-      "timeout": 1800,
-      "sites_per_worker": 20
+      "timeout": 1800
    },
   "log_level": "DEBUG",
   "hsds_endpoint": "http://localhost:5101",
