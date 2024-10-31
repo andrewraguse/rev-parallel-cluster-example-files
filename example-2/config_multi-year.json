@@ -5,7 +5,9 @@
       "qos": "normal",
       "memory": null,
       "walltime": 1,
-      "allocation": "revcluster"
+      "allocation": "revcluster",
+      "nodes": 1,
+      "max_workers": 1
    },
   "groups": {
     "none": {
