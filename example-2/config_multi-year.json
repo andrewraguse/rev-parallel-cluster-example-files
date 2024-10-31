@@ -3,7 +3,6 @@
   "execution_control": {
       "option": "awspc",
       "qos": "normal",
-      "memory": null,
       "walltime": 1,
       "allocation": "revcluster",
       "nodes": 1,
