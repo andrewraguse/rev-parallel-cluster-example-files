@@ -17,7 +17,7 @@
       ],
       "source_dir": "/home/ec2-user/rev-parallel-cluster-example-files/example-2/",
       "source_files": [
-        "example-2_generation_*.h5"
+        "example-2_generation_1.h5"
       ],
       "source_prefix": ""
     }
