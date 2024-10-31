@@ -16,7 +16,9 @@
         "lcoe_fcr"
       ],
       "source_dir": "/home/ec2-user/rev-parallel-cluster-example-files/example-2/",
-      "source_files": "example-2_generation_*.h5",
+      "source_files": [
+        "example-2_generation_*.h5"  // This needs to be an array
+      ],
       "source_prefix": ""
     }
   },
