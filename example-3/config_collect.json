@@ -1,0 +1,33 @@
+{
+  "collect_pattern": "PIPELINE",
+  "dsets": [
+    "cf_mean",
+    "cf_profile",
+    "lcoe_fcr",
+    "ws_mean",
+    "depth",
+    "dist_p_to_a",
+    "dist_a_to_s",
+    "dist_op_to_s",
+    "dist_p_to_s",
+    "dist_p_to_s_nolimit",
+    "dist_s_to_l",
+    "hs_average",
+    "fixed_downtime",
+    "floating_downtime",
+    "capital_cost",
+    "fixed_operating_cost",
+    "variable_operating_cost",
+    "fixed_charge_rate"
+  ],
+  "execution_control": {
+    "allocation": "rev",
+    "feature": "-p debug",
+    "option": "eagle",
+    "walltime": 1
+  },
+  "log_directory": "./logs/",
+  "log_level": "INFO",
+  "project_points": "./inputs_outputs/project_points_offshore_test.csv",
+  "purge_chunks": false
+}

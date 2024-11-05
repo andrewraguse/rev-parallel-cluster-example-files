@@ -1,0 +1,35 @@
+{
+  "analysis_years": [
+    2012,
+    2013
+  ],
+  "log_directory": "./logs/",
+  "execution_control": {
+      "option": "awspc",
+      "qos": "normal",
+      "walltime": 4,
+      "allocation": "revcluster",
+      "nodes": 5,
+      "sites_per_worker": 25,
+      "max_workers": 1,
+      "timeout": 1800
+   },
+  "log_level": "INFO",
+  "output_request": [
+    "cf_mean",
+    "cf_profile",
+    "lcoe_fcr",
+    "ws_mean",
+    "capital_cost",
+    "fixed_operating_cost",
+    "variable_operating_cost",
+    "fixed_charge_rate"
+  ],
+  "project_points": "./inputs_outputs/project_points_offshore_test.csv",
+  "resource_file": "/nrel/wtk/conus/wtk_conus_{}.h5",
+  "sam_files": {
+    "offshore": "./inputs_outputs/offshore.json",
+    "onshore": "./inputs_outputs/onshore.json"
+  },
+  "technology": "windpower"
+}
