@@ -7,10 +7,10 @@
   "execution_control": {
       "option": "awspc",
       "qos": "normal",
-      "walltime": 1,
+      "walltime": 4,
       "allocation": "revcluster",
-      "nodes": 6,
-      "sites_per_worker": 20,
+      "nodes": 10,
+      "sites_per_worker": 25,
       "max_workers": 1,
       "timeout": 1800
    },
