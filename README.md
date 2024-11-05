@@ -35,7 +35,7 @@ Now we’ll create a Python environment specifically for reV and install the nec
 conda create --name rev python=3.9
 conda activate rev
 pip install NREL-reV
-git clone https://github.com/andrewraguse/rev-parallel-cluster-example-files
+git clone https://github.com/switchbox-data/rev-parallel-cluster-example-files.git
 ```
 
 ### 4. Run a Simple SLURM Command to Verify Setup
