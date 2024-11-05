@@ -7,10 +7,17 @@
   "execution_control": {
       "option": "awspc",
       "qos": "normal",
+<<<<<<< HEAD
       "walltime": 4,
       "allocation": "revcluster",
       "nodes": 5,
       "sites_per_worker": 25,
+=======
+      "walltime": 1,
+      "allocation": "revcluster",
+      "nodes": 6,
+      "sites_per_worker": 20,
+>>>>>>> 5288a28 (Adding third offshore test example)
       "max_workers": 1,
       "timeout": 1800
    },
