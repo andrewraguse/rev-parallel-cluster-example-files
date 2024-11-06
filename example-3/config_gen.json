@@ -13,7 +13,8 @@
     "sites_per_worker": 100,
     "walltime": 4.0
   },
-  "log_level": "INFO",
+  "log_level": "DEBUG",
+  "hsds_endpoint": "http://localhost:5101",
   "output_request": [
     "cf_mean",
     "cf_profile",
