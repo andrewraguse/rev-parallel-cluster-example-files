@@ -477,3 +477,39 @@ For detailed uses, see each command’s documentation:
 wind speeds or solar irradiance, usually from datasets like the NREL Weather Toolkit (WTK).
 
 - **SAM Files**: SAM (System Advisor Model) files include settings for simulating energy production, such as solar panel configuration or wind turbine specs.
+
+### **Uploading Results to Amazon S3**
+
+After completing the analysis, you can upload the results to an Amazon S3 bucket for easy access and storage. This step allows you to keep your data organized and accessible, especially useful when working with large datasets.
+
+#### AWS Command for Uploading to S3
+
+1. **Identify Your Output Files**: Locate the files you want to upload in your output directory. For example:
+   - `example-4_generation_2007.h5`
+   - `example-4_generation_2008.h5`
+   - `example-4_generation_2009.h5`
+   - `example-4_multi-year.h5` (or your specific multi-year result file)
+
+2. **Run the AWS CLI Command**: Use the `aws s3 cp` command to copy files to your S3 bucket. Replace `your-s3-bucket-name` with your actual S3 bucket name and adjust the file paths as needed.
+
+   ```bash
+   aws s3 cp /path/to/your/results/example-4_generation_2007.h5 s3://your-s3-bucket-name/results/
+   aws s3 cp /path/to/your/results/example-4_generation_2008.h5 s3://your-s3-bucket-name/results/
+   aws s3 cp /path/to/your/results/example-4_generation_2009.h5 s3://your-s3-bucket-name/results/
+   aws s3 cp /path/to/your/results/example-4_multi-year.h5 s3://your-s3-bucket-name/results/
+   ```
+
+3. **Verify the Upload**:
+   - You can list files in the S3 bucket to confirm they were uploaded successfully:
+     ```bash
+     aws s3 ls s3://your-s3-bucket-name/results/
+     ```
+
+#### Example Command for a Complete Folder Upload
+
+If you have multiple files in a folder and want to upload them all at once, you can use the `--recursive` flag:
+   ```bash
+   aws s3 cp /path/to/your/results/ s3://your-s3-bucket-name/results/ --recursive
+   ```
+
+This will copy all files in the specified folder to the S3 bucket, maintaining your results in a central, accessible location.
