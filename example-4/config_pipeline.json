@@ -5,7 +5,13 @@
   },
   "pipeline": [
     {
-      "generation": "./config_gen.json"
+      "generation": "./config_gen1.json"
+    },
+    {
+      "generation": "./config_gen2.json"
+    },
+    {
+      "generation": "./config_gen3.json"
     },
     {
       "collect": "./config_collect.json"
