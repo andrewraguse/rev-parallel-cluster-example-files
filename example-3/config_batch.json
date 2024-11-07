@@ -1,4 +1,8 @@
 {
+  "logging": {
+    "log_file": "./logs/",
+    "log_level": "DEBUG"
+  },
    "pipeline_config":"./config_pipeline.json",
    "sets":[
       {
@@ -11,28 +15,6 @@
             "./config_gen.json"
          ],
          "set_tag":"year-2011"
-      },
-      {
-         "args":{
-            "analysis_years":[
-               2012
-            ]
-         },
-         "files":[
-            "./config_gen.json"
-         ],
-         "set_tag":"year-2012"
-      },
-      {
-         "args":{
-            "analysis_years":[
-               2013
-            ]
-         },
-         "files":[
-            "./config_gen.json"
-         ],
-         "set_tag":"year-2013"
       }
    ]
 }
