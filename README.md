@@ -178,6 +178,83 @@ In this example, `reV` processes **2,500 GIDs** across multiple nodes, using `re
 - **Scaling Requirements**: As data volume increases, adding nodes (or vCPUs) becomes essential. With `reV`’s current design, the data load is proportionally distributed across available nodes. For a target use case, such as analyzing 10 years of data for 17,000 GIDs, we recommend scaling up nodes incrementally.
 - **Sequential Execution Workaround**: If a team prefers to limit the number of EC2 instances in use (e.g., only 4 instances at a time), a good approach is to **manually batch jobs** by year or GID subsets.
 
+### Example 4: Sequential Multi-Year Analysis with `reV pipeline`
+
+In this example, we use `reV pipeline` with a configuration that runs multiple jobs sequentially, processing a large dataset year by year. This approach is effective for handling extensive data across multiple years without overloading compute resources. By running each year independently and sequentially, you can control the resource load on your nodes, making it suitable for situations where limited compute resources are available.
+
+#### Objective
+
+To process:
+- **Data from multiple years** sequentially (2007, 2008, 2009).
+- **Multi-year analysis** on the collected data after each individual year has been processed.
+
+This setup effectively distributes the workload across time and minimizes resource strain, as each job uses a defined subset of resources, preventing CPU overload.
+
+#### Pipeline Configuration
+
+The configuration below splits data processing for each year into separate `generation` steps, which are executed sequentially, followed by a `multi-year` step for aggregating results across the years.
+
+```json
+{
+  "logging": {
+    "log_file": "./logs/pipeline.log",
+    "log_level": "DEBUG"
+  },
+  "pipeline": [
+    {
+      "command": "generation",
+      "generation_2007": "./config_gen1.json"
+    },
+    {
+      "command": "generation",
+      "generation_2008": "./config_gen2.json"
+    },
+    {
+      "command": "generation",
+      "generation_2009": "./config_gen3.json"
+    },
+    {
+      "multi-year": "./config_multi-year.json"
+    }
+  ]
+}
+```
+
+**Explanation**:
+- Each `generation` command processes data for a specific year, with unique configurations for 2007, 2008, and 2009.
+- Once all `generation` steps are complete, the `multi-year` step performs analysis across the combined data.
+
+This configuration allows each year to be processed independently, reducing CPU load by processing fewer sites per job and ensuring a controlled use of resources.
+
+#### Execution Instructions
+
+1. **Save the Configuration File**:
+   Save the pipeline configuration as `config_pipeline.json`.
+
+2. **Run the Pipeline Command**:
+   To start the pipeline, execute the following command with `--monitor` to manage sequential execution:
+   ```bash
+   reV pipeline -c config_pipeline.json --monitor
+   ```
+
+3. **Explanation of the Command**:
+   - **`reV pipeline -c config_pipeline.json`**: Specifies the pipeline configuration file.
+   - **`--monitor`**: Ensures that each step waits for the previous one to complete before starting the next. This flag is essential for sequential execution, particularly for steps like `multi-year` that depend on the completion of previous years.
+
+4. **Monitor Execution**:
+   - Use `squeue` to observe job status on SLURM.
+   - Run `reV status` to track the pipeline’s progress and verify that each stage runs in sequence.
+
+5. **Check Logs**:
+   - Check the `./logs/pipeline.log` file for detailed information on each step’s execution.
+   - If you encounter issues (e.g., CPU overload or memory constraints), consider lowering the `sites_per_worker` parameter in the `generation` configurations or increasing node resources.
+
+#### Key Takeaways
+
+- **Sequential Processing**: This configuration ensures that each year is processed in sequence, avoiding overload and optimizing resource allocation.
+- **Efficient Resource Management**: By processing fewer sites per worker and controlling node usage, this setup helps manage large datasets without maxing out compute capacity.
+- **Scalability**: This approach is easily scalable; to add more years, simply duplicate the `generation` configuration with updated file paths and year parameters.
+
 ## Running reV Commands
 
 ### **reV Configurations**

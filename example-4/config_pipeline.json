@@ -17,9 +17,6 @@
       "generation_2009": "./config_gen3.json"
     },
     {
-      "collect": "./config_collect.json"
-    },
-    {
       "multi-year": "./config_multi-year.json"
     }
   ]
