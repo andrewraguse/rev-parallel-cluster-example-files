@@ -1,14 +1,12 @@
 {
   "analysis_years": [
-    2011,
-    2012,
-    2013
+    0000
   ],
   "log_directory": "./logs/",
   "execution_control": {
     "allocation": "revcluster",
     "qos": "normal",
-    "nodes": 30,
+    "nodes": 1,
     "option": "awspc",
     "sites_per_worker": 20,
     "walltime": 4.0
