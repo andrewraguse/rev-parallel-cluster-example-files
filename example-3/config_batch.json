@@ -1,36 +1,38 @@
 {
-    "logging": {
-        "log_file": null,
-        "log_level": "INFO"
-    },
-    "pipeline_config": "./config_pipeline.json",
-    "sets": [
-        {
-            "args": {
-              "analysis_years": [
-                2011
-              ]
-            },
-            "files": "./config_gen.json",
-            "set_tag": "year-2011"
-        },
-        {
-            "args": {
-              "analysis_years": [
-                2012
-              ]
-            },
-            "files": "./config_gen.json",
-            "set_tag": "year-2012"
-        },
-        {
-            "args": {
-              "analysis_years": [
-                2013
-              ]
-            },
-            "files": "./config_gen.json",
-            "set_tag": "year-2013"
-        }
-    ]
+   "pipeline_config":"./config_pipeline.json",
+   "sets":[
+      {
+         "args":{
+            "analysis_years":[
+               2011
+            ]
+         },
+         "files":[
+            "./config_gen.json"
+         ],
+         "set_tag":"year-2011"
+      },
+      {
+         "args":{
+            "analysis_years":[
+               2012
+            ]
+         },
+         "files":[
+            "./config_gen.json"
+         ],
+         "set_tag":"year-2012"
+      },
+      {
+         "args":{
+            "analysis_years":[
+               2013
+            ]
+         },
+         "files":[
+            "./config_gen.json"
+         ],
+         "set_tag":"year-2013"
+      }
+   ]
 }
