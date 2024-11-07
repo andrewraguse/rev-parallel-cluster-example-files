@@ -6,7 +6,7 @@
   "execution_control": {
     "allocation": "revcluster",
     "qos": "normal",
-    "nodes": 30,
+    "nodes": 16,
     "option": "awspc",
     "sites_per_worker": 10,
     "walltime": 4.0
