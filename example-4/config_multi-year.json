@@ -1,0 +1,24 @@
+{
+  "log_directory": "./logs/",
+  "execution_control": {
+      "option": "awspc",
+      "qos": "normal",
+      "walltime": 1,
+      "allocation": "revcluster",
+      "nodes": 1,
+      "max_workers": 1
+   },
+  "groups": {
+    "none": {
+      "dsets": [
+        "cf_mean",
+        "cf_profile",
+        "lcoe_fcr"
+      ],
+      "source_dir": "./",
+      "source_files": "PIPELINE",
+      "source_prefix": ""
+    }
+  },
+  "log_level": "INFO"
+}

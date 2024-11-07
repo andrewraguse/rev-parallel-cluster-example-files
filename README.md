@@ -58,33 +58,125 @@ sudo systemctl status slurmctld
 
 ### 5. Running the reV Example Jobs
 
-#### Example 1: Single-Node Job
+Here’s an enhanced version of the examples with more details about the data size and expected performance:
 
-Navigate to the example folder and run the first example, which tests single-node functionality:
+---
 
-```bash
-cd rev-parallel-cluster-example-files/example-1
-reV generation -c AWS_test_config_generation.json
-```
+### Example 1: Single-Node Job (Small Data Load)
 
-- **Monitor Execution**: Check `squeue` for job status and use `reV status` to confirm the job runs without issues.
-- **Check Logs**: If issues occur, especially 503 errors, check the logs under `/logs/stdout/` for details.
+This example demonstrates `reV` functionality with a small dataset, designed to run quickly on a single node. This setup is ideal for initial testing or when analyzing fewer than 10 GIDs, as it completes relatively fast.
 
-#### Example 2: Multi-Node Job
+1. **Navigate to the Example Folder**:
+   ```bash
+   cd rev-parallel-cluster-example-files/example-1
+   ```
 
-Once single-node functionality is verified, proceed with the multi-node example:
+2. **Run the Single-Node Job**:
+   Execute the command:
+   ```bash
+   reV generation -c AWS_test_config_generation.json
+   ```
 
-```bash
-cd ../example-2
-reV pipeline config_pipeline.json --monitor
-```
+3. **Monitor Execution**:
+   - Use `squeue` to check the job status on the cluster.
+   - Run `reV status` to confirm the job is progressing without issues.
 
-- **Scaling Nodes**: If only one node is active, other nodes may take time to initialize. Monitor using `squeue`.
-- **Retry Failed Jobs**: If any jobs fail, re-running the command will restart any incomplete tasks.
+4. **Check Logs**:
+   - If any issues arise, such as 503 errors or connection timeouts, inspect the logs in `/logs/stdout/` for detailed error messages.
 
-## How to Make Changes to the Cluster
+   **Note**: This configuration, processing fewer than 10 GIDs, should complete relatively quickly (under a minute) as it only requires a single node and minimal compute resources.
 
-To customize your ParallelCluster configuration, there are a few key parameters and settings you can adjust, depending on your requirements. Below are the main configuration options you can modify.
+---
+
+### Example 2: Multi-Node Job (Large Data Load with Sequential Pipeline Execution)
+
+In this example, `reV` processes **2,500 GIDs** across multiple nodes, using `reV pipeline` to execute multiple steps in sequence. The `--monitor` flag is crucial here, as it ensures that each pipeline step (e.g., `generation`, `collect`, `multi-year`) runs in the correct order, with dependent steps starting immediately after the previous step completes. Without `--monitor`, subsequent steps would not initiate, making it impossible to proceed through the full pipeline.
+
+1. **Navigate to the Example Folder**:
+   ```bash
+   cd rev-parallel-cluster-example-files/example-2
+   ```
+
+2. **Run the Multi-Node Job with Sequential Pipeline Execution**:
+   Use the `--monitor` flag to ensure that dependent steps run in the intended sequence:
+   ```bash
+   reV pipeline config_pipeline.json --monitor
+   ```
+
+   - The `--monitor` flag enables dependent steps, such as `collect` and `multi-year`, to begin processing as soon as the preceding step (like `generation`) completes.
+   - Without `--monitor`, each stage would wait indefinitely, preventing the pipeline from progressing.
+
+3. **Scaling Nodes**:
+   - Given the large data load (2,500 GIDs), the job will scale across multiple nodes to distribute the workload.
+   - Use `squeue` to monitor node activity and ensure resources are utilized effectively.
+
+4. **Retrying Failed Jobs**:
+   - If any job fails, re-running `reV pipeline` with `--monitor` will restart only the incomplete stages, ensuring continuity without redundant processing.
+
+5. **Performance Considerations**:
+   - Processing 2,500 GIDs across dependent steps is optimized by the `--monitor` option, enabling each stage to run sequentially without delay.
+   - **Tip**: To further optimize performance, consider adjusting the node count based on data size.
+
+   ### Example 3: Batch Processing for Multi-Year Analysis
+
+   In this example, we use `reV` batch mode to analyze **17,000 GIDs over two years**. Initially, it was thought that batch processing would execute each year sequentially. However, further investigation showed that batch processing split the resources, allocating half the nodes to each year, causing each job to use only half the available nodes. This configuration effectively doubled the runtime, as both years ran concurrently on a reduced number of nodes.
+
+   Despite the doubled runtime, we found that by adjusting the `sites_per_worker` parameter to a lower value (10), we reduced the risk of CPU overload, allowing the jobs to run efficiently without overloading the compute resources.
+
+   #### Objective
+
+   To analyze:
+   - **17,000 GIDs** (geospatial locations).
+   - **Two years** of data (2011 and 2012).
+
+   This setup enables the system to handle a large data load by reducing the intensity of parallelization. However, since batch processing does not enforce sequential execution, each job may still share the allocated resources.
+
+   #### Findings from Batch Mode
+
+   - **CPU Utilization**: Setting `sites_per_worker` to a lower value helped limit CPU usage, preventing the CPU from maxing out even when both years were processed concurrently.
+   - **Execution Time**: Since batch mode does not enforce sequential execution, each year’s job used only half the nodes, effectively doubling the runtime compared to using all nodes for a single year.
+   - **Scaling with Data Size**: Increasing data size requires scaling the number of nodes. Lowering `sites_per_worker` is an effective way to control resource usage, but may still necessitate additional nodes if data volume exceeds current capacity.
+
+   #### Configuration Details
+
+   - **Batch Configuration**: The batch file splits the task by year, with 8 nodes automatically allocated to each year by SLURM.
+   - **Execution Control**:
+     - **16 Nodes**: Using 16 nodes allows each year to utilize 8 nodes concurrently.
+     - **Parallelization Parameters**:
+       - **`sites_per_worker`**: Set to 10 to reduce the load per worker, avoiding CPU overload.
+       - **`max_workers`**: Set to 1 to control the level of concurrency within each worker.
+
+   #### Example Execution Steps
+
+   1. **Navigate to the Example Folder**:
+      ```bash
+      cd rev-parallel-cluster-example-files/example-3
+      ```
+
+   2. **Run the Batch Job**:
+      Execute the batch job with:
+      ```bash
+      reV batch -c config_batch.json
+      ```
+
+   3. **Monitor Execution**:
+      - Check `squeue` to observe how SLURM allocates nodes between the years.
+      - Use `reV status` to track the progression and see that both years are processed concurrently on separate node groups.
+
+   4. **Check Logs**:
+      - If issues such as CPU overload occur, inspect logs in `year-2011/logs/stdout/` or `year-2012/logs/stdout/`.
+      - If needed, consider increasing nodes or lowering `sites_per_worker` to reduce CPU load further.
+
+   #### Key Takeaways
+
+   - **Batch Mode and Parallelism**: Batch processing itself does not enforce sequential processing. Instead, it may split resources between jobs, which can lead to each job using only a subset of the allocated nodes.
+   - **Reducing Sites per Worker**: Lowering `sites_per_worker` effectively reduces CPU demand, allowing the job to run with less intensive resource usage. However, this may extend the runtime, as each worker processes fewer sites concurrently.
+   - **Scaling Recommendations**: For very large datasets, you may still need to increase node count to meet resource requirements, especially if batch mode splits resources across jobs.
+
+#### Observations and Recommendations
+
+- **Scaling Requirements**: As data volume increases, adding nodes (or vCPUs) becomes essential. With `reV`’s current design, the data load is proportionally distributed across available nodes. For a target use case, such as analyzing 10 years of data for 17,000 GIDs, we recommend scaling up nodes incrementally.
+- **Sequential Execution Workaround**: If a team prefers to limit the number of EC2 instances in use (e.g., only 4 instances at a time), a good approach is to **manually batch jobs** by year or GID subsets.
 
 ## Running reV Commands
 
@@ -169,14 +261,14 @@ Here’s an example of an `execution_control` block commonly used with `reV gene
     "timeout": 1800
 }
 ```
-- **option**: The execution environment, here using AWS ParallelCluster (`awspc`).
-- **qos**: Quality of Service level, often `normal` for standard priority.
-- **walltime**: Expected time in hours to complete the job.
-- **allocation**: Specifies the cluster allocation (e.g., `revcluster`).
-- **nodes**: Number of cluster nodes to use.
-- **sites_per_worker**: Number of project sites processed by each worker.
-- **max_workers**: Number of workers per CPU (controls parallelization).
-- **timeout**: Timeout in seconds for each job or task.
+- **option**: Specifies the execution environment, using AWS ParallelCluster (`awspc`) in this case.
+- **qos**: Quality of Service level, typically set to `normal` for standard priority.
+- **walltime**: Expected duration in hours for the job to complete.
+- **allocation**: Defines the cluster allocation (e.g., `revcluster`).
+- **nodes**: Maximum number of **vCPUs** to use for the job. SLURM will automatically provision the required number of nodes based on this value. Each compute instance in this cluster uses a `c5.xlarge` instance type, which has 4 vCPUs. Therefore, specifying `16 nodes` would provision 4 EC2 instances.
+- **`sites_per_worker`**: Specifies the number of project sites each worker processes in parallel. Lowering this number reduces the level of parallel computation, which can be useful for managing resource usage. For example, setting `sites_per_worker` to 10 will result in a slower job execution but will help prevent overuse of compute resources by reducing the load on each worker. Tinkering with `sites_per_worker` in combination with the number of `nodes` will be essential for determining the optimal amount of compute resources your job requires. Adjusting both settings allows you to balance execution time with resource utilization, helping to fine-tune the efficiency and performance of your workload.
+- **max_workers**: Number of workers per vCPU, controlling the level of parallelization within each node.
+- **timeout**: Timeout in seconds for each job or task before it is marked as failed.
 
 ---
 

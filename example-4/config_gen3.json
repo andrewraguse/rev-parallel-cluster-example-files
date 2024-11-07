@@ -1,0 +1,29 @@
+{
+  "analysis_years": [
+    2009
+  ],
+  "log_directory": "./logs/",
+  "execution_control": {
+      "option": "awspc",
+      "qos": "normal",
+      "walltime": 1,
+      "allocation": "revcluster",
+      "nodes": 1,
+      "sites_per_worker": 20,
+      "max_workers": 1,
+      "timeout": 1800
+   },
+  "log_level": "DEBUG",
+  "hsds_endpoint": "http://localhost:5101",
+  "output_request": [
+    "cf_mean",
+    "cf_profile",
+    "lcoe_fcr"
+  ],
+  "project_points": "./wtk_points_front_range.csv",
+  "resource_file": "/nrel/wtk/conus/wtk_conus_{}.h5",
+  "sam_files": {
+    "def": "./windpower.json"
+  },
+  "technology": "windpower"
+}

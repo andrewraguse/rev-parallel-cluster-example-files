@@ -1,6 +1,5 @@
 {
   "logging": {
-    "log_file": "./",
     "log_level": "DEBUG"
   },
    "pipeline_config":"./config_pipeline.json",
@@ -25,7 +24,7 @@
          "files":[
             "./config_gen.json"
          ],
-         "set_tag":"year-2011"
+         "set_tag":"year-2012"
       }
    ]
 }
